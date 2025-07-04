@@ -15,9 +15,12 @@ public class HaustierDto {
     public HaustierDto() {
     }
 
-    public HaustierDto(long id, String cep) {
-        this.id = id;
+    public HaustierDto(String rua, String numero, String bairro, String cep, String complemento) {
+        this.rua = rua;
+        this.numero = numero;
+        this.bairro = bairro;
         this.cep = cep;
+        this.complemento = complemento;
     }
 
     public long getId() {
@@ -69,7 +72,7 @@ public class HaustierDto {
     }
 
     public Haustier NovoHuastier(){
-        return new Haustier(this.id, this.cep);
+        return new Haustier(rua, numero, bairro, cep, complemento);
 
     }
     

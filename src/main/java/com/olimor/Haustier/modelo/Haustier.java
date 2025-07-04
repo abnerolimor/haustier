@@ -1,12 +1,15 @@
 package com.olimor.Haustier.modelo;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 @Entity
 public class Haustier {
     
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String rua;
     private String numero;
@@ -19,9 +22,12 @@ public class Haustier {
     }
 
 
-    public Haustier(long id, String cep) {
-        this.id = id;
+    public Haustier(String rua, String numero, String bairro, String cep, String complemento) {
+        this.rua = rua;
+        this.numero = numero;
+        this.bairro = bairro;
         this.cep = cep;
+        this.complemento = complemento;
     }
 
 
@@ -87,7 +93,8 @@ public class Haustier {
 
     @Override
     public String toString() {
-        return "Haustier [id=" + id + ", cep=" + cep + "]";
+        return "Haustier [id=" + id + ", rua=" + rua + ", numero=" + numero + ", bairro=" + bairro + ", cep=" + cep
+                + ", complemento=" + complemento + "]";
     }
 
 
