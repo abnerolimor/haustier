@@ -1,6 +1,7 @@
 package com.olimor.Haustier.controller;
 
 import java.net.URI;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -165,15 +166,21 @@ public String animacao() {
       setInterval(nextFrame, 500);
     </script>
     """;
+
 }
+    @GetMapping(value = "/lista")
+    public List<Haustier> findAll() {
+        return haustierRepository.findAll();
+    }
+
     @PostMapping(value = "/insert")
     public ResponseEntity<?> insert(@RequestBody HaustierDto haustierDto){
         Haustier haustier = haustierDto.NovoHuastier();
         System.out.println(haustier.toString());
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
-                .path("/id")
-                .buildAndExpand(haustier.getId())
-                .toUri();
+                                        .path("/id")
+                                        .buildAndExpand(haustier.getId())
+                                        .toUri();
         haustierRepository.save(haustier);
         return ResponseEntity.created(uri).body(haustier); 
 
