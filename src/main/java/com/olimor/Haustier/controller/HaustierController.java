@@ -2,10 +2,14 @@ package com.olimor.Haustier.controller;
 
 import java.net.URI;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -166,12 +170,13 @@ public String animacao() {
       setInterval(nextFrame, 500);
     </script>
     """;
+    }
 
-}
     @GetMapping(value = "/lista")
     public List<Haustier> findAll() {
         return haustierRepository.findAll();
     }
+
 
     @PostMapping(value = "/insert")
     public ResponseEntity<?> insert(@RequestBody HaustierDto haustierDto){
@@ -184,6 +189,20 @@ public String animacao() {
         haustierRepository.save(haustier);
         return ResponseEntity.created(uri).body(haustier); 
 
+    }
+
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id){
+        haustierRepository.deleteById(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<Haustier> findById(@PathVariable Long id) {
+        Optional<Haustier> haustierBank = haustierRepository.findById(id);
+        return ResponseEntity.ok(haustierBank.get());
+    }
+
     
-}
-}
+    }
+
